@@ -1,11 +1,22 @@
 import helpers.Keyboard;
-
+import java.util.concurrent.TimeUnit;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 public class App{
     public static String divider = "---------------------------------------------";
     public static int balance = 0;
     public static String[] transactions = new String[5];
+    public static String transactionsFileName = "transactions.txt";
+    public static File transactionFile = new File(transactionsFileName); 
+    public static String purpose;
+    public static int amount_in_euros;
+    
     public static void main(String[] args){
+        createTransactionFile();	
         System.out.println("Hello! :)");
         int whileloop_exit = 0;
         while (whileloop_exit < 1){
@@ -15,6 +26,7 @@ public class App{
             while(whileloop_yes_no < 1){
                 String yes_or_no;
                 System.out.println(divider);
+                pause(3);
                 System.out.println("do you want to go back to menu?");
                 System.out.print("yes/no: ");
                 yes_or_no = Keyboard.readString().toLowerCase();
@@ -53,26 +65,15 @@ public class App{
         public static void redirect(){
             int selection;
             int selection_manage_money;
-            int amount_in_euros;
             String name_of_recipient;
             selection = Keyboard.readInt();
             //code all redirections
             if (selection == 1){
                 System.out.println(divider);
                 System.out.println("Your balance: " + App.balance);
+                System.out.println("----");
                 System.out.println("Your last transactions: ");
-                boolean atleastonetransaction = false;
-                for (String transaction : App.transactions) {
-                    if (transaction != null) {
-                        System.out.println(transaction);
-                        atleastonetransaction = true;
-                    }
-
-                } 
-                if(atleastonetransaction == false) {
-
-                    System.out.println("none");
-                }
+                printTransactions();
             }else{
                 if (selection == 2){
                     System.out.println(divider);
@@ -85,6 +86,9 @@ public class App{
                     selection_manage_money = Keyboard.readInt();
                     if (selection_manage_money == 1) {
                         System.out.println(divider);
+                        System.out.println("What is the purpose of your transaction?");
+                        purpose = Keyboard.readString();
+                        System.out.println(divider);
                         System.out.println("How much money money do you want to add?");
                         System.out.println(divider);
                         System.out.print("Please type in the amount in euros: ");
@@ -93,6 +97,7 @@ public class App{
                         App.balance += amount_in_euros;
                         System.out.println("Nice, " + amount_in_euros + " euro have/has been added to your balance");
                         // maybe decide if its mor or less then 9 and change the string each
+                        storeTransaction(purpose + " +" + amount_in_euros + "€");
                     } else {
                         if (selection_manage_money == 2) {
                             System.out.println(divider);
@@ -108,10 +113,70 @@ public class App{
                             App.balance -= amount_in_euros;
                             System.out.println(divider);
                             System.out.println("Okay, the money has been deducted from your balance and has been sent to " + name_of_recipient);
+                            storeTransaction("Money transfer to " + name_of_recipient + " -" + amount_in_euros);
                         }
+                        
+                    
+                    }
+                } else{
+                    if (selection == 3){
+                        System.out.println("Okay, goodbye :(");
+                        System.exit(0);
                     }
                 }
+            }    
+    }
+    private static void pause(int seconds) {
+        try {
+            TimeUnit.SECONDS.sleep(seconds);
+        } catch (InterruptedException e) {
         }
+    }
+    
+        public static void createTransactionFile() {
+          try {
+            if (App.transactionFile.createNewFile()) {
+              System.out.println("File created: " + App.transactionFile.getName());
+            } else {
+              System.out.println(transactionFile + " is been used.");
+            }
+          } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+          }
+        }
+    public static void storeTransaction(String transaction){
+        try {
+            FileWriter myWriter = new FileWriter(transactionsFileName, true);
+            myWriter.write(transaction);
+            myWriter.write("\n");
+            myWriter.close();
+          } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+          }
+    }
+    public static void printTransactions(){ 
+        try {
+            boolean atleastonetransaction = false;
+            Scanner myReader = new Scanner(transactionFile);
+            while (myReader.hasNextLine()) {
+              String data = myReader.nextLine();
+              atleastonetransaction = true;
+              System.out.println(data);
+            }       
+            if(atleastonetransaction == false) {
+
+              System.out.println("none");
+            }
+            myReader.close();
+          } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();          
+
+          }
+
+          
 
     }
 }
