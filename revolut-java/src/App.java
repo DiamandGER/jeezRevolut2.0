@@ -7,16 +7,18 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class App{
-    public static String divider = "---------------------------------------------";
-    public static int balance = 0;
-    public static String[] transactions = new String[5];
+    public static String divider = "---------------------------------------------";  
     public static String transactionsFileName = "transactions.txt";
     public static File transactionFile = new File(transactionsFileName); 
     public static String purpose;
     public static int amount_in_euros;
+    public static String balanceFileName = "balance.txt";
+    public static File balanceFile = new File(balanceFileName);
+    public static int balance = readBalance();
     
     public static void main(String[] args){
-        createTransactionFile();	
+        createTransactionFile();
+        createBalanceFile();	
         System.out.println("Hello! :)");
         int whileloop_exit = 0;
         while (whileloop_exit < 1){
@@ -70,7 +72,8 @@ public class App{
             //code all redirections
             if (selection == 1){
                 System.out.println(divider);
-                System.out.println("Your balance: " + App.balance);
+                System.out.print("Your balance: ");
+                printBalance();
                 System.out.println("----");
                 System.out.println("Your last transactions: ");
                 printTransactions();
@@ -97,7 +100,8 @@ public class App{
                         App.balance += amount_in_euros;
                         System.out.println("Nice, " + amount_in_euros + " euro have/has been added to your balance");
                         // maybe decide if its mor or less then 9 and change the string each
-                        storeTransaction(purpose + " +" + amount_in_euros + "€");
+                        storeTransaction(purpose + " +" + amount_in_euros);
+                        storeBalance(balance);
                     } else {
                         if (selection_manage_money == 2) {
                             System.out.println(divider);
@@ -114,6 +118,7 @@ public class App{
                             System.out.println(divider);
                             System.out.println("Okay, the money has been deducted from your balance and has been sent to " + name_of_recipient);
                             storeTransaction("Money transfer to " + name_of_recipient + " -" + amount_in_euros);
+                            storeBalance(balance);
                         }
                         
                     
@@ -138,7 +143,7 @@ public class App{
             if (App.transactionFile.createNewFile()) {
               System.out.println("File created: " + App.transactionFile.getName());
             } else {
-              System.out.println(transactionFile + " is been used.");
+              System.out.println(transactionsFileName + " is been used.");
             }
           } catch (IOException e) {
             System.out.println("An error occurred.");
@@ -179,4 +184,61 @@ public class App{
           
 
     }
+    public static void createBalanceFile() {
+        try {
+          if (App.balanceFile.createNewFile()) {
+            System.out.println("File created: " + App.balanceFile.getName());
+          } else {
+            System.out.println(balanceFileName + " is been used.");
+          }
+        } catch (IOException e) {
+          System.out.println("An error occurred.");
+          e.printStackTrace();
+        }
+      }
+      public static void storeBalance(int balance){
+        try {
+            FileWriter myWriter = new FileWriter(balanceFileName, false);
+            String balanceString = Integer.toString(balance);  
+            myWriter.write(balanceString);
+            myWriter.write("\n");
+            myWriter.close();
+          } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+          }
+        }
+
+        public static void printBalance(){ 
+            try {
+                Scanner myReader = new Scanner(balanceFile);
+                while (myReader.hasNextLine()) {
+                  String data = myReader.nextLine();
+                  int balance = Integer.parseInt(data);
+                  System.out.println(balance);
+                }       
+                myReader.close();
+              } catch (FileNotFoundException e) {
+                System.out.println("An error occurred.");
+                e.printStackTrace();          
+    
+              
+            }
+        }
+        public static int readBalance(){
+            int balance = 0;
+            try {
+                Scanner myReader = new Scanner(balanceFile);
+                while (myReader.hasNextLine()) {
+                  String data = myReader.nextLine();
+                  balance = Integer.parseInt(data); 
+                  
+                }  
+                   
+                myReader.close();
+              } catch (FileNotFoundException e) {
+                e.printStackTrace();        
+                }
+            return(balance);  
+        }
 }

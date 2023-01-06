@@ -1,3 +1,5 @@
-extra money +67€
-Money transfer to ingo -67
-Money transfer to pp -90
+ddd +23
+zzz +34
+Money transfer to papa -23
+Money transfer to papa -10
+Money transfer to uuu -10
