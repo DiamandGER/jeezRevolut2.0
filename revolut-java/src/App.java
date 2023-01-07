@@ -96,10 +96,12 @@ public class App{
                         System.out.println(divider);
                         System.out.print("Please type in the amount in euros: ");
                         amount_in_euros = Keyboard.readInt();
-                        // add money affects transactions
                         App.balance += amount_in_euros;
-                        System.out.println("Nice, " + amount_in_euros + " euro have/has been added to your balance");
-                        // maybe decide if its mor or less then 9 and change the string each
+                        if (amount_in_euros == 1){
+                        System.out.println("Nice, " + amount_in_euros + " euro has been added to your balance");
+                        }else{
+                            System.out.println("Nice, " + amount_in_euros + " euro have been added to your balance");    
+                        }
                         storeTransaction(purpose + " +" + amount_in_euros);
                         storeBalance(balance);
                     } else {
@@ -107,13 +109,11 @@ public class App{
                             System.out.println(divider);
                             System.out.println("Alright, who should be the recipient?");
                             name_of_recipient = Keyboard.readString();
-                            // save name
                             System.out.println(divider);
                             System.out.println("How much money do you want to send?");
                             System.out.println(divider);
                             System.out.print("Please type in the amount in euros: ");
                             amount_in_euros = Keyboard.readInt();
-                            //save data and add to transactions
                             App.balance -= amount_in_euros;
                             System.out.println(divider);
                             System.out.println("Okay, the money has been deducted from your balance and has been sent to " + name_of_recipient);
