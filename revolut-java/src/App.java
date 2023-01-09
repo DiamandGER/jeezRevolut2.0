@@ -18,7 +18,8 @@ public class App{
     
     public static void main(String[] args){
         createTransactionFile();
-        createBalanceFile();	
+        createBalanceFile();
+        System.out.println(divider);	
         System.out.println("Hello! :)");
         int whileloop_exit = 0;
         while (whileloop_exit < 1){
