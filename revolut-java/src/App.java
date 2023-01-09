@@ -101,8 +101,8 @@ public class App{
                         if (amount_in_euros == 1){
                         System.out.println("Nice, " + amount_in_euros + " euro has been added to your balance");
                         }else{
-                            System.out.println("Nice, " + amount_in_euros + " euro have been added to your balance");    
-                        }
+                        System.out.println("Nice, " + amount_in_euros + " euro have been added to your balance");    
+                    }
                         storeTransaction(purpose + " +" + amount_in_euros);
                         storeBalance(balance);
                     } else {
