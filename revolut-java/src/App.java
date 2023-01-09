@@ -6,7 +6,8 @@ import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class App{
+public class App {
+    // decarling global variables for the application
     public static String divider = "---------------------------------------------";  
     public static String transactionsFileName = "transactions.txt";
     public static File transactionFile = new File(transactionsFileName); 
@@ -17,13 +18,20 @@ public class App{
     public static int balance = readBalance();
     
     public static void main(String[] args){
+        
+        // setting up
         createTransactionFile();
+        
         createBalanceFile();
+        
+        // onboarding
         System.out.println(divider);	
         System.out.println("Hello! :)");
+        
         int whileloop_exit = 0;
+        
         while (whileloop_exit < 1){
-            menu();
+            menu(); // displaying the menu
             redirect();
             int whileloop_yes_no = 0;
             while(whileloop_yes_no < 1){
@@ -132,6 +140,7 @@ public class App{
                 }
             }    
     }
+    
     private static void pause(int seconds) {
         try {
             TimeUnit.SECONDS.sleep(seconds);
