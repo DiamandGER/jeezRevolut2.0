@@ -32,9 +32,10 @@ public class App {
         
         while (whileloop_exit < 1){
             menu(); // displaying the menu
-            redirect();
+            redirect(); // displaying the next step after you made your choice ine the menu
             int whileloop_yes_no = 0;
-            while(whileloop_yes_no < 1){
+            // giving the user a possibilty to resume an go back to menu
+            while(whileloop_yes_no < 1){ 
                 String yes_or_no;
                 System.out.println(divider);
                 pause(3);
@@ -42,11 +43,11 @@ public class App {
                 System.out.print("yes/no: ");
                 yes_or_no = Keyboard.readString().toLowerCase();
                 System.out.println(yes_or_no);
+                // only accept certain answers
                 if (yes_or_no.compareTo("yes") == 0){
                     whileloop_exit = 0;
                     whileloop_yes_no = 1;                   
                 }else{
-                   
                     if (yes_or_no.compareTo("no") == 0 ){
                             whileloop_yes_no = 1;
                             whileloop_exit = 1; 
@@ -61,9 +62,10 @@ public class App {
             }
         
     }
+    //offboard
     System.out.println("Okay, goodbye :(");
 }
-    
+   // print the menu 
     public static void menu(){
         System.out.println("Select action:");
         System.out.println(divider);
@@ -74,11 +76,12 @@ public class App {
         System.out.print("Type the particular number for our choice: ");
     }
         public static void redirect(){
+          // display all redirections and read the specific number of choice
             int selection;
             int selection_manage_money;
             String name_of_recipient;
             selection = Keyboard.readInt();
-            //code all redirections
+            // display the 2nd menu after choosing 'account info'
             if (selection == 1){
                 System.out.println(divider);
                 System.out.print("Your balance: ");
@@ -87,6 +90,7 @@ public class App {
                 System.out.println("Your last transactions: ");
                 printTransactions();
             }else{
+              // display the 2nd menu after choosing 'manage your money'
                 if (selection == 2){
                     System.out.println(divider);
                     System.out.println("Select action:");
@@ -96,6 +100,7 @@ public class App {
                     System.out.println(divider);
                     System.out.print("Type the particular number for our choice: ");
                     selection_manage_money = Keyboard.readInt();
+                    //display the 3rd menu after choosing 'add money'
                     if (selection_manage_money == 1) {
                         System.out.println(divider);
                         System.out.println("What is the purpose of your transaction?");
@@ -111,9 +116,11 @@ public class App {
                         }else{
                         System.out.println("Nice, " + amount_in_euros + " euro have been added to your balance");    
                     }
+                    // sync your actions with the balance and transactions
                         storeTransaction(purpose + " +" + amount_in_euros);
                         storeBalance(balance);
                     } else {
+                      // display the 3rd menu after choosing 'send money'
                         if (selection_manage_money == 2) {
                             System.out.println(divider);
                             System.out.println("Alright, who should be the recipient?");
@@ -133,21 +140,21 @@ public class App {
                     
                     }
                 } else{
+                  // offboard after choosing 'quit'
                     if (selection == 3){
                         System.out.println("Okay, goodbye :(");
                         System.exit(0);
                     }
                 }
             }    
-    }
-    
+          }
     private static void pause(int seconds) {
         try {
             TimeUnit.SECONDS.sleep(seconds);
         } catch (InterruptedException e) {
         }
     }
-    
+    // create transaction file
         public static void createTransactionFile() {
           try {
             if (App.transactionFile.createNewFile()) {
@@ -160,6 +167,7 @@ public class App {
             e.printStackTrace();
           }
         }
+        // store changes in transaction file
     public static void storeTransaction(String transaction){
         try {
             FileWriter myWriter = new FileWriter(transactionsFileName, true);
@@ -171,6 +179,7 @@ public class App {
             e.printStackTrace();
           }
     }
+    // read transaction file and display it in 'account info'
     public static void printTransactions(){ 
         try {
             boolean atleastonetransaction = false;
@@ -194,6 +203,7 @@ public class App {
           
 
     }
+    // create balance file
     public static void createBalanceFile() {
         try {
           if (App.balanceFile.createNewFile()) {
@@ -206,6 +216,7 @@ public class App {
           e.printStackTrace();
         }
       }
+       // store changes in balance file
       public static void storeBalance(int balance){
         try {
             FileWriter myWriter = new FileWriter(balanceFileName, false);
@@ -218,7 +229,7 @@ public class App {
             e.printStackTrace();
           }
         }
-
+        // read transaction file and display it in 'account info'
         public static void printBalance(){ 
             try {
                 Scanner myReader = new Scanner(balanceFile);
@@ -235,6 +246,7 @@ public class App {
               
             }
         }
+        // read balance file and display it in 'account info'
         public static int readBalance(){
             int balance = 0;
             try {
