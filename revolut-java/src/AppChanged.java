@@ -18,9 +18,9 @@ public class AppChanged {
      */
     public static final String DIVIDER = "---------------------------------------------";  
     
-    public static String transactionsFileName = "transactions.txt";
+    public static final String transactionsFileName = "transactions.txt";
 
-    public static String balanceFileName = "balance.txt";
+    public static final String balanceFileName = "balance.txt";
     
     public static File transactionFile = new File(transactionsFileName); 
 
@@ -31,7 +31,7 @@ public class AppChanged {
     
     public static int amountInEuros;
     
-    public static int balance = readBalance();
+    public static final int balance = readBalance();
     
     public static void main(String[] args) {
         // TODO: Move all variable declarations here at the top so that it will look less cluttered
@@ -77,8 +77,7 @@ public class AppChanged {
                         whileloopGoBackToMenu = 1;
                         exitApp = 1; 
                     } else {
-                        System.out.println(DIVIDER);
-                        System.out.println("Error: wrong input");
+                        displayDividedMessage("Error: wrong input");
                         whileloopGoBackToMenu = 0;
                     }  
                 }
@@ -91,7 +90,7 @@ public class AppChanged {
    // print the menu 
     public static void menu(){
         System.out.println("Select action:");
-        displayDividedMessage("1. Account Info\n2. Manage your money\n3. Quit\n");
+        displayDividedMessage("1. Account Info\n2. Manage your money\n3. Quit");
         // TODO: replacing DIVIDER and text with displayDividedMessage can help with readability
         System.out.println(DIVIDER);
         System.out.print("Type the particular number for our choice: ");
@@ -105,8 +104,7 @@ public class AppChanged {
           // TODO: I think a switch case for the selection ()
           // display the 2nd menu after choosing 'account info'
           if (selection == 1){
-              System.out.println(DIVIDER);
-              System.out.print("Your balance: ");
+              displayDividedMessage("Your balance: ");
               printBalance();
               System.out.println("----");
               System.out.println("Your last transactions: ");
@@ -114,21 +112,17 @@ public class AppChanged {
           }else{
             // display the 2nd menu after choosing 'manage your money'
               if (selection == 2){
-                  System.out.println(DIVIDER);
-                  System.out.println("Select action:");
-                  System.out.println(DIVIDER);
-                  System.out.println("1. Add money");
+                  displayDividedMessage("Select action:");
+                  displayDividedMessage("1. Add money");
                   System.out.println("2. Send money");
                   System.out.println(DIVIDER);
                   System.out.print("Type the particular number for our choice: ");
                   selection_manage_money = Keyboard.readInt();
                   //display the 3rd menu after choosing 'add money'
                   if (selection_manage_money == 1) {
-                      System.out.println(DIVIDER);
-                      System.out.println("What is the purpose of your transaction?");
+                      displayDividedMessage("What is the purpose of your transaction?");
                       purpose = Keyboard.readString();
-                      System.out.println(DIVIDER);
-                      System.out.println("How much money money do you want to add?");
+                      displayDividedMessage("How much money money do you want to add?");
                       System.out.println(DIVIDER);
                       System.out.print("Please type in the amount in euros: ");
                       amountInEuros = Keyboard.readInt();
@@ -144,17 +138,14 @@ public class AppChanged {
                   } else {
                     // display the 3rd menu after choosing 'send money'
                       if (selection_manage_money == 2) {
-                          System.out.println(DIVIDER);
-                          System.out.println("Alright, who should be the recipient?");
+                          displayDividedMessage("Alright, who should be the recipient?");
                           name_of_recipient = Keyboard.readString();
-                          System.out.println(DIVIDER);
-                          System.out.println("How much money do you want to send?");
+                          displayDividedMessage("How much money do you want to send?");
                           System.out.println(DIVIDER);
                           System.out.print("Please type in the amount in euros: ");
                           amountInEuros = Keyboard.readInt();
                           App.balance -= amountInEuros;
-                          System.out.println(DIVIDER);
-                          System.out.println("Okay, the money has been deducted from your balance and has been sent to " + name_of_recipient);
+                          displayDividedMessage("Okay, the money has been deducted from your balance and has been sent to " + name_of_recipient);
                           storeTransaction("Money transfer to " + name_of_recipient + " -" + amountInEuros);
                           storeBalance(balance);
                       }
