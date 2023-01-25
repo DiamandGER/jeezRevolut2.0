@@ -1,3 +1,4 @@
-test +11
-Money transfer to test2 -11
-Adding my pay to savings +1200
+u +50
+y +30
+test +29
+Money transfer to Ms. C -29

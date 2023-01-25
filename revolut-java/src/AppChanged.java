@@ -13,9 +13,6 @@ import java.util.Scanner;
  */
 public class AppChanged {
     // decarling global variables for the application
-    /**
-     * TODO: These seem like they should be constants rather than variables (Idk what that means...)
-     */
     public static final String DIVIDER = "---------------------------------------------";  
     
     public static final String transactionsFileName = "transactions.txt";
@@ -34,7 +31,7 @@ public class AppChanged {
     public static final int balance = readBalance();
     
     public static void main(String[] args) {
-        // TODO: Move all variable declarations here at the top so that it will look less cluttered
+        // TODO: Move all variable declarations here at the top so that it will look less cluttered (somehow it wasn't possible without destroying my whole project :/)
 
         // setting up
         createTransactionFile();
@@ -89,9 +86,9 @@ public class AppChanged {
 }
    // print the menu 
     public static void menu(){
-        System.out.println("Select action:");
+        displayDividedMessage("Select action:");
         displayDividedMessage("1. Account Info\n2. Manage your money\n3. Quit");
-        // TODO: replacing DIVIDER and text with displayDividedMessage can help with readability
+        // TODO: replacing DIVIDER and text with displayDividedMessage can help with readability (I couldn't chanege all of them because i want some prints to be on the same row (System.out.print();))
         System.out.println(DIVIDER);
         System.out.print("Type the particular number for our choice: ");
     }
@@ -101,7 +98,6 @@ public class AppChanged {
           int selection_manage_money;
           String name_of_recipient;
           selection = Keyboard.readInt();
-          // TODO: I think a switch case for the selection ()
           // display the 2nd menu after choosing 'account info'
           if (selection == 1){
               displayDividedMessage("Your balance: ");
@@ -276,7 +272,6 @@ public class AppChanged {
             return(balance);  
         }
     
-    // TODO: Use this method to make your program code look cleaner
     public static void displayDividedMessage(String message) {
        System.out.println(DIVIDER);
        System.out.println(message);
